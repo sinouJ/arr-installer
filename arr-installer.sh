@@ -12,6 +12,7 @@ ___  ____ _  _ ____    _ _  _ ____ ___ ____ _    _    ____ ____
 
 #This is a script to help install essentials for docker.
 
+docker_path=/var/lib/docker
 
 ######################################################################
 
@@ -22,7 +23,7 @@ updatesys () { yes | sudo apt-get update && sudo apt-get upgrade; }
 
 ######################################################################
 
-echo "This script assumes you have your docker files located in your /home/$USER/raspi-docker folder."
+echo "This script assumes you have your docker files located in your $docker_path folder."
 echo " "
 echo "If your folder is located elsewhere, you will need to change the location of your docker-compose files in this script, or clicking f when selecting containers."
 echo " "
@@ -89,8 +90,8 @@ else
 fi
 
 ######################################################################
-sudo mkdir /home/$USER/raspi-docker/downloads
-sudo chmod 777 /home/$USER/raspi-docker/downloads
+sudo mkdir $docker_path/downloads
+sudo chmod 777 $docker_path/downloads
 
 #Install Portainer
 
@@ -111,8 +112,8 @@ if [ "$yesorno" = y ]; then
    - PUID=1000
    - PGID=1000
    - TZ=US/Central
-  image: portainer/portainer-ce" >> /home/$USER/raspi-docker/docker-compose.yml		#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
-echo " " >>/home/$USER/raspi-docker/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
+  image: portainer/portainer-ce" >> $docker_path/docker-compose.yml		#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
+echo " " >>$docker_path/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
 echo " "
 echo "Successfully Added"
 elif [ "$yesorno" = n ]; then
@@ -171,24 +172,24 @@ echo " "
 read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
-	mkdir /home/$USER/raspi-docker/downloads/tv
-	mkdir /home/$USER/raspi-docker/sonarr
-	mkdir /home/$USER/raspi-docker/sonarr/config
+	mkdir $docker_path/downloads/tv
+	mkdir $docker_path/sonarr
+	mkdir $docker_path/sonarr/config
 	echo "sonarr:
   container_name: sonarr
   restart: unless-stopped
   ports:
    - 8989:8989
   volumes:
-   - /home/$USER/raspi-docker/sonarr/config:/config
-   - /home/$USER/raspi-docker/downloads:/downloads
-   - /home/$USER/raspi-docker/downloads/tv:/tv
+   - $docker_path/sonarr/config:/config
+   - $docker_path/downloads:/downloads
+   - $docker_path/downloads/tv:/tv
   environment:
    - PUID=1000
    - PGID=1000
    - TZ=US/Central
-  image: linuxserver/sonarr" >> /home/$USER/raspi-docker/docker-compose.yml		#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
-echo " " >>/home/$USER/raspi-docker/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
+  image: linuxserver/sonarr" >> $docker_path/docker-compose.yml		#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
+echo " " >>$docker_path/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
 echo " "
 echo "Successfully Added"
 elif [ "$yesorno" = n ]; then
@@ -249,9 +250,9 @@ echo "Would you like to install Radarr? (y/n/f/e)"
 read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
-	mkdir /home/$USER/raspi-docker/radarr
-	mkdir /home/$USER/raspi-docker/downloads/movies
-	mkdir /home/$USER/raspi-docker/radarr/config
+	mkdir $docker_path/radarr
+	mkdir $docker_path/downloads/movies
+	mkdir $docker_path/radarr/config
 	echo "radarr:
     image: lscr.io/linuxserver/radarr
     container_name: radarr
@@ -261,12 +262,12 @@ if [ "$yesorno" = y ]; then
       - TZ=UTC
       - UMASK=022 #optional
     volumes:
-      - /home/$USER/raspi-docker/radarr/config:/config
-      - /home/$USER/raspi-docker/downloads/movies:/movies
+      - $docker_path/radarr/config:/config
+      - $docker_path/downloads/movies:/movies
     ports:
       - 7878:7878
-    restart: unless-stopped" >> /home/$USER/raspi-docker/docker-compose.yml 		#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
-echo " " >>/home/$USER/raspi-docker/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
+    restart: unless-stopped" >> $docker_path/docker-compose.yml 		#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
+echo " " >>$docker_path/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
 echo " "
 echo "Successfully Added"
 elif [ "$yesorno" = n ]; then
@@ -328,9 +329,9 @@ echo "Would you like to install Readarr? (y/n/f/e)"
 read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
-	mkdir /home/$USER/raspi-docker/readarr
-	mkdir /home/$USER/raspi-docker/readarr/config
-	mkdir /home/$USER/raspi-docker/downloads/books
+	mkdir $docker_path/readarr
+	mkdir $docker_path/readarr/config
+	mkdir $docker_path/downloads/books
 	echo "readarr:
     image: lscr.io/linuxserver/readarr:develop
     container_name: readarr
@@ -339,13 +340,13 @@ if [ "$yesorno" = y ]; then
       - PGID=1000
       - TZ=US/Central
     volumes:
-      - /home/$USER/raspi-docker/readarr/config:/config
+      - $docker_path/readarr/config:/config
       - /path/to/books:/books #optional
-      - /home/$USER/raspi-docker/downloads/books:/downloads #optional
+      - $docker_path/downloads/books:/downloads #optional
     ports:
       - 8787:8787
-    restart: unless-stopped" >> /home/$USER/raspi-docker/docker-compose.yml		#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
-echo " " >>/home/$USER/raspi-docker/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
+    restart: unless-stopped" >> $docker_path/docker-compose.yml		#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
+echo " " >>$docker_path/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
 echo " "
 echo "Successfully Added"
 echo " "
@@ -411,8 +412,8 @@ echo "Would you like to install Bazarr (Subtitles)? (y/n/f/e)"
 read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
-	mkdir /home/$USER/raspi-docker/bazarr
-	mkdir /home/$USER/raspi-docker/bazarr/config
+	mkdir $docker_path/bazarr
+	mkdir $docker_path/bazarr/config
 	echo "bazarr:
     image: lscr.io/linuxserver/bazarr
     container_name: bazarr
@@ -421,13 +422,13 @@ if [ "$yesorno" = y ]; then
       - PGID=1000
       - TZ=US/Central
     volumes:
-      - /home/$USER/raspi-docker/bazarr/config:/config
-      - /home/$USER/raspi-docker/downloads/movies:/movies #optional
-      - /home/$USER/raspi-docker/downloads/tv:/tv #optional
+      - $docker_path/bazarr/config:/config
+      - $docker_path/downloads/movies:/movies #optional
+      - $docker_path/downloads/tv:/tv #optional
     ports:
       - 6767:6767
-    restart: unless-stopped" >> /home/$USER/raspi-docker/docker-compose.yml		#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
-echo " " >>/home/$USER/raspi-docker/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
+    restart: unless-stopped" >> $docker_path/docker-compose.yml		#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
+echo " " >>$docker_path/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
 echo " "
 echo "Successfully Added"
 echo " "
@@ -447,7 +448,7 @@ elif [ "$yesorno" = f ]; then
 			read -p "Enter the new location of the TV Folder (Optional): " brtv
 			sleep 1
 			echo "bazarr:
-    image: lscr.io/linuxserver/bazarr
+    image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
     environment:
       - PUID=1000
@@ -493,8 +494,8 @@ echo "Would you like to install Overseerr? (y/n/f/e)"
 read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
-	mkdir /home/$USER/raspi-docker/overseerr
-	mkdir /home/$USER/raspi-docker/overseerr/config
+	mkdir $docker_path/overseerr
+	mkdir $docker_path/overseerr/config
 	echo "overseerr:
     image: sctx/overseerr:latest
     container_name: overseerr
@@ -504,9 +505,9 @@ if [ "$yesorno" = y ]; then
     ports:
       - 5055:5055
     volumes:
-      - /home/$USER/raspi-docker/overseerr/config:/app/config
-    restart: unless-stopped" >> /home/$USER/raspi-docker/docker-compose.yml		#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
-echo " " >>/home/$USER/raspi-docker/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
+      - $docker_path/overseerr/config:/app/config
+    restart: unless-stopped" >> $docker_path/docker-compose.yml		#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
+echo " " >>$docker_path/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
 echo " "
 echo "Successfully Added"
 echo " "
@@ -565,9 +566,9 @@ echo "Would you like to install Lidarr (Music)? (y/n/f/e)"
 read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
-	mkdir /home/$USER/raspi-docker/lidarr
-	mkdir /home/$USER/raspi-docker/downloads/music
-	mkdir /home/$USER/raspi-docker/lidarr/config
+	mkdir $docker_path/lidarr
+	mkdir $docker_path/downloads/music
+	mkdir $docker_path/lidarr/config
 	echo "lidarr:
     image: lscr.io/linuxserver/lidarr
     container_name: lidarr
@@ -576,13 +577,13 @@ if [ "$yesorno" = y ]; then
       - PGID=1000
       - TZ=US/Central
     volumes:
-      - /home/$USER/raspi-docker/lidarr/config:/config
-      - /home/$USER/raspi-docker/downloads/music:/music #optional
-      - /home/$USER/raspi-docker/downloads:/downloads #optional
+      - $docker_path/lidarr/config:/config
+      - $docker_path/downloads/music:/music #optional
+      - $docker_path/downloads:/downloads #optional
     ports:
       - 8686:8686
-    restart: unless-stopped" >> /home/$USER/raspi-docker/docker-compose.yml		#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
-echo " " >>/home/$USER/raspi-docker/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
+    restart: unless-stopped" >> $docker_path/docker-compose.yml		#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
+echo " " >>$docker_path/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
 echo " "
 echo "Successfully Added"
 elif [ "$yesorno" = n ]; then
@@ -646,8 +647,8 @@ echo "Would you like install Prowlarr (Required for Sonarr/Radarr)? (y/n/f/e)"
 read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
-	mkdir /home/$USER/raspi-docker/prowlarr
-	mkdir /home/$USER/raspi-docker/prowlarr/config
+	mkdir $docker_path/prowlarr
+	mkdir $docker_path/prowlarr/config
 	echo "prowlarr:
     image: lscr.io/linuxserver/prowlarr:develop
     container_name: prowlarr
@@ -656,11 +657,11 @@ if [ "$yesorno" = y ]; then
       - PGID=1000
       - TZ=US/Central
     volumes:
-      - /home/$USER/raspi-docker/prowlarr/config:/config
+      - $docker_path/prowlarr/config:/config
     ports:
       - 9696:9696
-    restart: unless-stopped" >> /home/$USER/raspi-docker/docker-compose.yml 	#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
-	echo " " >> /home/$USER/raspi-docker/docker-compose.yml		#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
+    restart: unless-stopped" >> $docker_path/docker-compose.yml 	#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
+	echo " " >> $docker_path/docker-compose.yml		#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
 	echo " "
 	echo "Successfully Added"
 elif [ "$yesorno" = n ]; then
@@ -718,20 +719,20 @@ echo "Would you like to install Jackett? (y/n/f/e)"
 read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
-	mkdir /home/$USER/raspi-docker/jackett
+	mkdir $docker_path/jackett
 	echo "jackett:
   container_name: jackett
   restart: unless-stopped
   ports:
    - 9117:9117
   volumes:
-   - /home/$USER/raspi-docker/jackett:/config
+   - $docker_path/jackett:/config
   environment:
    - PUID=1000
    - PGID=1000
    - TZ=US/Central
-  image: linuxserver/jackett" >> /home/$USER/raspi-docker/docker-compose.yml 		#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
-echo " " >>/home/$USER/raspi-docker/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
+  image: linuxserver/jackett" >> $docker_path/docker-compose.yml 		#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
+echo " " >>$docker_path/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
 echo " "
 echo "Successfully Added"
 elif [ "$yesorno" = n ]; then
@@ -790,8 +791,8 @@ echo "Would you like install Jellyfin Media Server? (y/n/f/e)"
 read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
-	mkdir /home/$USER/raspi-docker/jellyfin
-	mkdir /home/$USER/raspi-docker/jellyfin/config
+	mkdir $docker_path/jellyfin
+	mkdir $docker_path/jellyfin/config
 	echo "jellyfin:
     image: lscr.io/linuxserver/jellyfin
     container_name: jellyfin
@@ -801,16 +802,16 @@ if [ "$yesorno" = y ]; then
       - TZ=US/Central
       - JELLYFIN_PublishedServerUrl=192.168.0.5 #optional
     volumes:
-      - /home/$USER/raspi-docker/config:/config
-      - /home/$USER/raspi-docker/downloads/tv:/data/tvshows
-      - /home/$USER/raspi-docker/downloads/movies:/data/movies
+      - $docker_path/config:/config
+      - $docker_path/downloads/tv:/data/tvshows
+      - $docker_path/downloads/movies:/data/movies
     ports:
       - 8096:8096
       - 8920:8920 #optional
       - 7359:7359/udp #optional
       - 1900:1900/udp #optional
-    restart: unless-stopped" >> /home/$USER/raspi-docker/docker-compose.yml 	#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
-	echo " " >> /home/$USER/raspi-docker/docker-compose.yml		#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
+    restart: unless-stopped" >> $docker_path/docker-compose.yml 	#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
+	echo " " >> $docker_path/docker-compose.yml		#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
 	echo " "
 	echo "Successfully Added"
 elif [ "$yesorno" = n ]; then
@@ -877,8 +878,8 @@ echo "Would you like to install Plex Media Server? (y/n/f/e)"
 read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
- mkdir /home/$USER/raspi-docker/plex
- mkdir /home/$USER/raspi-docker/plex/config
+ mkdir $docker_path/plex
+ mkdir $docker_path/plex/config
  echo " "
  read -p "Enter your Plex Claim Token: " plextoken
   sudo docker run \
@@ -887,9 +888,9 @@ if [ "$yesorno" = y ]; then
 --network=host \
 -e TZ="America/Chicago" \
 -e PLEX_CLAIM="$plextoken" \
--v /home/$USER/raspi-docker/plex/config:/config \
--v /home/$USER/raspi-docker/downloads/movies:/movies \
--v /home/$USER/raspi-docker/downloads/tv:/tv \
+-v $docker_path/plex/config:/config \
+-v $docker_path/downloads/movies:/movies \
+-v $docker_path/downloads/tv:/tv \
 plexinc/pms-docker:plexpass
 elif [ "$yesorno" = n ]; then
  echo " "
@@ -942,8 +943,8 @@ echo "Would you like to install Emby? (y/n/f/e)"
 read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
-	mkdir /home/$USER/raspi-docker/emby
-  mkdir /home/$USER/raspi-docker/emby/config
+	mkdir $docker_path/emby
+  mkdir $docker_path/emby/config
 	echo "emby:
     image: lscr.io/linuxserver/emby
     container_name: emby
@@ -952,15 +953,15 @@ if [ "$yesorno" = y ]; then
       - PGID=1000
       - TZ=US/Central
     volumes:
-      - /home/$USER/raspi-docker/emby/config:/config
-      - /home/$USER/raspi-docker/downloads/tv:/data/tvshows
-      - /home/$USER/raspi-docker/downloads/movies:/data/movies
+      - $docker_path/emby/config:/config
+      - $docker_path/downloads/tv:/data/tvshows
+      - $docker_path/downloads/movies:/data/movies
       - /opt/vc/lib:/opt/vc/lib #optional
     ports:
       - 8096:8096
       - 8920:8920 #optional
-    restart: unless-stopped" >> /home/$USER/raspi-docker/docker-compose.yml		#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
-echo " " >>/home/$USER/raspi-docker/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
+    restart: unless-stopped" >> $docker_path/docker-compose.yml		#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
+echo " " >>$docker_path/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
 echo " "
 echo "Successfully Added"
 echo " "
@@ -1026,7 +1027,7 @@ echo "Would you like to install AdGuard (DNS Adblocker)? (y/n/f/e)"
 read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
-	mkdir /home/$USER/raspi-docker/adguard
+	mkdir $docker_path/adguard
 	echo "adguardhome:
     image: adguard/adguardhome
     container_name: adguardhome
@@ -1041,8 +1042,8 @@ if [ "$yesorno" = y ]; then
     volumes:
       - ./workdir:/opt/adguardhome/work
       - ./confdir:/opt/adguardhome/conf
-    restart: unless-stopped" >> /home/$USER/raspi-docker/docker-compose.yml		#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
-echo " " >>/home/$USER/raspi-docker/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
+    restart: unless-stopped" >> $docker_path/docker-compose.yml		#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
+echo " " >>$docker_path/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
 echo " "
 echo "Successfully Added"
 echo " "
@@ -1106,9 +1107,9 @@ echo "Would you like to install Podgrab? (y/n/f/e)"
 read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
-	mkdir /home/$USER/raspi-docker/podgrab
-    mkdir /home/$USER/raspi-docker/podgrab/config
-    mkdir /home/$USER/raspi-docker/podcasts
+	mkdir $docker_path/podgrab
+    mkdir $docker_path/podgrab/config
+    mkdir $docker_path/podcasts
 	echo "podgrab:
     image: akhilrex/podgrab
     container_name: podgrab
@@ -1116,12 +1117,12 @@ if [ "$yesorno" = y ]; then
       - CHECK_FREQUENCY=240
      # - PASSWORD=password     ## Uncomment to enable basic authentication, username = podgrab
     volumes:
-      - /home/$USER/raspi-docker/podgrab/config:/config
-      - /home/$USER/raspi-docker/podcasts:/assets
+      - $docker_path/podgrab/config:/config
+      - $docker_path/podcasts:/assets
     ports:
       - 8080:8080
-    restart: unless-stopped" >> /home/$USER/raspi-docker/docker-compose.yml		#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
-echo " " >>/home/$USER/raspi-docker/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
+    restart: unless-stopped" >> $docker_path/docker-compose.yml		#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
+echo " " >>$docker_path/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
 echo " "
 echo "Successfully Added"
 echo " "
@@ -1181,7 +1182,7 @@ echo "Would you like to install Heimdall? (y/n/f/e)"
 read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
-	mkdir /home/$USER/raspi-docker/heimdall
+	mkdir $docker_path/heimdall
 	echo "heimdall:
     image: lscr.io/linuxserver/heimdall
     container_name: heimdall
@@ -1190,12 +1191,12 @@ if [ "$yesorno" = y ]; then
       - PGID=1000
       - TZ=US/Central
     volumes:
-      - /home/$USER/raspi-docker/heimdall:/config
+      - $docker_path/heimdall:/config
     ports:
       - 80:80
       - 443:443
-    restart: unless-stopped" >> /home/$USER/raspi-docker/docker-compose.yml		#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
-echo " " >>/home/$USER/raspi-docker/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
+    restart: unless-stopped" >> $docker_path/docker-compose.yml		#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
+echo " " >>$docker_path/docker-compose.yml #replace this location with the location docker-compose.yml if needed.
 echo " "
 echo "Successfully Added"
 echo " "
