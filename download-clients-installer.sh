@@ -13,7 +13,7 @@ ___  ____ _  _ ____    _ _  _ ____ ___ ____ _    _    ____ ____
 #This script will install download clients in docker.
 
 ######################################################################
-
+docker_path=/var/lib/docker
 #Functions List
 
 noanswer () { echo "Skipping..." ; }
@@ -21,12 +21,12 @@ updatesys () { yes | sudo apt-get update && sudo apt-get upgrade; }
 
 ######################################################################
 
-echo "This script assumes you have your docker files located in your /home/$USER/raspi-docker folder."
+echo "This script assumes you have your docker files located in your $docker_path folder."
 echo "If your folder is located elsewhere, you will need to change the location of your docker-compose files in this script."
 echo "This script follows my other guide of insatlling Docker and Mullvad VPN. Visit https://github.com/LordZeuss/raspi-docker for more info."
 echo " "
 echo "NOTE: With this script, it will default to downloading in the /home/$USER/Downloads folder."
-echo "NOTE: The config files will default to /home/$USER/raspi-docker/qbittorrent unless otherwise changed in the script."
+echo "NOTE: The config files will default to $docker_path/qbittorrent unless otherwise changed in the script."
 echo "I recommend changing the locations of downloads and the config file location if yours is in an alternate location."
 echo " "
 echo "This Script assumes your timezone is US/Central. You may need to modify."
@@ -95,7 +95,7 @@ echo "Would you like install qBittorrent? (y/n/f/e)"
 read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
-	mkdir /home/$USER/raspi-docker/qbittorrent
+	mkdir $docker_path/qbittorrent
 	echo "qbittorrent:
     container_name: qbittorrent
     image: hotio/qbittorrent
@@ -107,10 +107,10 @@ if [ "$yesorno" = y ]; then
       - UMASK=002
       - TZ=US/Central
     volumes:
-      - /home/$USER/raspi-docker/qbittorrent:/config
-      - /home/$USER/raspi-docker/downloads:/downloads
-    restart: unless-stopped" >> /home/$USER/raspi-docker/docker-compose.yml 	#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
-	echo " " >> /home/$USER/raspi-docker/docker-compose.yml		#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
+      - $docker_path/qbittorrent:/config
+      - $docker_path/downloads:/downloads
+    restart: unless-stopped" >> $docker_path/docker-compose.yml 	#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
+	echo " " >> $docker_path/docker-compose.yml		#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
 	echo " "
 	echo "Successfully Added"
 elif [ "$yesorno" = n ]; then
@@ -171,8 +171,8 @@ echo "Would you like install Transmission? (y/n/f/e)"
 read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
-	mkdir /home/$USER/raspi-docker/transmission
-	mkdir /home/$USER/raspi-docker/transmission/config
+	mkdir $docker_path/transmission
+	mkdir $docker_path/transmission/config
 	echo "transmission:
     image: linuxserver/transmission
     container_name: transmission
@@ -184,15 +184,15 @@ if [ "$yesorno" = y ]; then
 #      - USER=username #optional
 #      - PASS=password #optional
     volumes:
-      - ./home/$USER/raspi-docker/transmission/config:/config
-      - ./home/$USER/raspi-docker/downloads:/downloads
+      - .$docker_path/transmission/config:/config
+      - .$docker_path/downloads:/downloads
       - ./downloads/TransmissionWatchFolder:/watch
     ports:
       - 9091:9091
       - 51413:51413
       - 51413:51413/udp
-    restart: unless-stopped" >> /home/$USER/raspi-docker/docker-compose.yml 	#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
-	echo " " >> /home/$USER/raspi-docker/docker-compose.yml		#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
+    restart: unless-stopped" >> $docker_path/docker-compose.yml 	#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
+	echo " " >> $docker_path/docker-compose.yml		#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
 	echo " "
 	echo "Successfully Added"
 elif [ "$yesorno" = n ]; then
@@ -260,8 +260,8 @@ echo "Would you like install Deluge? (y/n/f/e)"
 read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
-	mkdir /home/$USER/raspi-docker/deluge
-	mkdir /home/$USER/raspi-docker/deluge/config
+	mkdir $docker_path/deluge
+	mkdir $docker_path/deluge/config
 	echo "deluge:
     image: linuxserver/deluge
     container_name: deluge
@@ -273,13 +273,13 @@ if [ "$yesorno" = y ]; then
       - UMASK=022 #optional
       - DELUGE_LOGLEVEL=error #optional
     volumes:
-      - ./home/$USER/raspi-docker/deluge/config:/config
+      - .$docker_path/deluge/config:/config
       - ./home/$USER/raspi-config/downloads:/downloads
     ports:
       - 8112:8112
       - 58846:58846
-      - 58946:58946" >> /home/$USER/raspi-docker/docker-compose.yml 	#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
-	echo " " >> /home/$USER/raspi-docker/docker-compose.yml		#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
+      - 58946:58946" >> $docker_path/docker-compose.yml 	#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
+	echo " " >> $docker_path/docker-compose.yml		#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
 	echo " "
 	echo "Successfully Added"
 elif [ "$yesorno" = n ]; then
@@ -346,8 +346,8 @@ echo "Would you like install NZBGet? (y/n/f/e)"
 read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
-	mkdir /home/$USER/raspi-docker/nzbget
-	mkdir /home/$USER/raspi-docker/nzbget/config
+	mkdir $docker_path/nzbget
+	mkdir $docker_path/nzbget/config
 	echo "nzbget:
     image: lscr.io/linuxserver/nzbget:latest
     container_name: nzbget
@@ -358,12 +358,12 @@ if [ "$yesorno" = y ]; then
       - NZBGET_USER=admin #optional
       - NZBGET_PASS=admin #optional
     volumes:
-      - /home/$USER/raspi-docker/nzbget/config:/config
-      - /home/$USER/raspi-docker/downloads:/downloads #optional
+      - $docker_path/nzbget/config:/config
+      - $docker_path/downloads:/downloads #optional
     ports:
       - 6789:6789
-    restart: unless-stopped" >> /home/$USER/raspi-docker/docker-compose.yml 	#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
-	echo " " >> /home/$USER/raspi-docker/docker-compose.yml		#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
+    restart: unless-stopped" >> $docker_path/docker-compose.yml 	#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
+	echo " " >> $docker_path/docker-compose.yml		#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
 	echo " "
 	echo "Default username & password is admin"
         echo " "
@@ -430,8 +430,8 @@ echo "Would you like install SABnzbd? (y/n/f/e)"
 read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
-	mkdir /home/$USER/raspi-docker/sabnzbd
-	mkdir /home/$USER/raspi-docker/sabnzbd/config
+	mkdir $docker_path/sabnzbd
+	mkdir $docker_path/sabnzbd/config
 	echo "sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
@@ -440,12 +440,12 @@ if [ "$yesorno" = y ]; then
       - PGID=1000
       - TZ=US/Central
     volumes:
-      - /home/$USER/raspi-docker/sabnzbd/config:/config
-      - /home/$USER/raspi-docker/downloads:/downloads #optional
+      - $docker_path/sabnzbd/config:/config
+      - $docker_path/downloads:/downloads #optional
     ports:
       - 8080:8080
-    restart: unless-stopped" >> /home/$USER/raspi-docker/docker-compose.yml 	#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
-	echo " " >> /home/$USER/raspi-docker/docker-compose.yml		#replace /home/$USER/raspi-docker/docker-compose.yml with the location of your docker-compose.yml file
+    restart: unless-stopped" >> $docker_path/docker-compose.yml 	#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
+	echo " " >> $docker_path/docker-compose.yml		#replace $docker_path/docker-compose.yml with the location of your docker-compose.yml file
     echo " "
     echo "Successfully Added"
 elif [ "$yesorno" = n ]; then
