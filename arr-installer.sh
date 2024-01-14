@@ -908,7 +908,7 @@ if [ "$yesorno" = y ]; then
              - PGID=1000
              - TZ=Etc/UTC
              - VERSION=docker
-             - PLEX_CLAIM= #optional
+             - PLEX_CLAIM= $plextoken
             volumes:
               - /path/to/library:/config
               - /path/to/tvseries:/tv
