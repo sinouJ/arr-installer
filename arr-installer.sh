@@ -913,7 +913,7 @@ if [ "$yesorno" = y ]; then
               - /path/to/library:/config
               - /path/to/tvseries:/tv
               - /path/to/movies:/movies
-            restart: unless-stopped"
+            restart: unless-stopped" >> $docker_path/docker-compose.yml
 elif [ "$yesorno" = n ]; then
  echo " "
  echo "Skipping..."
