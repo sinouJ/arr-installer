@@ -93,6 +93,11 @@ fi
 sudo mkdir $docker_path/downloads
 sudo chmod 777 $docker_path/downloads
 
+#Init Docker-Compose.yml
+
+echo "version: '3.3'
+  services:" >> $docker_path/docker-compose.yml
+
 #Install Portainer
 
 echo "Would you like to install Portainer (Required if not already insalled)? (y/n/f/e)"
