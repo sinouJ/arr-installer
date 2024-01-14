@@ -12,7 +12,7 @@ ___  ____ _  _ ____    _ _  _ ____ ___ ____ _    _    ____ ____
 
 #This is a script to help install essentials for docker.
 
-docker_path=/etc/docker    #Change this to the location of your docker-compose.yml file
+docker_path=/home/$USER/sinou/docker  #Change this to the location of your docker-compose.yml file
 
 ######################################################################
 
