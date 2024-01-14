@@ -902,7 +902,6 @@ if [ "$yesorno" = y ]; then
   echo "plex:
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
-    network_mode: host
     environment:
      - PUID=1000
      - PGID=1000
