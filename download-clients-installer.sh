@@ -13,7 +13,7 @@ ___  ____ _  _ ____    _ _  _ ____ ___ ____ _    _    ____ ____
 #This script will install download clients in docker.
 
 ######################################################################
-docker_path=/home/$USER/sinou/docker    #Change this to the location of your docker-compose.yml file
+docker_path=/home/sinou/docker    #Change this to the location of your docker-compose.yml file
 #Functions List
 
 noanswer () { echo "Skipping..." ; }
