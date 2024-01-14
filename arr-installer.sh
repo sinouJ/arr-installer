@@ -94,9 +94,21 @@ sudo mkdir $docker_path/downloads
 sudo chmod 777 $docker_path/downloads
 
 #Init Docker-Compose.yml
+echo "Would you like to init docker-compose.yml (Required if not already init)? (y/n/f/e)"
+echo " "
+read -n1 yesorno
 
-echo "version: '3.3'
+if [ "yesorno" = y ]; then
+  echo "version: '3.3'
   services:" >> $docker_path/docker-compose.yml
+elif [ "$yesorno" = n ]; then
+	echo " "
+	echo "Skipping..."
+else
+  echo " "
+  echo "Goodbye!"
+  exit 1
+fi
 
 #Install Portainer
 
