@@ -900,20 +900,22 @@ if [ "$yesorno" = y ]; then
  echo " "
  read -p "Enter your Plex Claim Token: " plextoken
   echo "plex:
-            image: lscr.io/linuxserver/plex:latest
-            container_name: plex
-            network_mode: host
-            environment:
-             - PUID=1000
-             - PGID=1000
-             - TZ=Etc/UTC
-             - VERSION=docker
-             - PLEX_CLAIM= $plextoken
-            volumes:
-              - /path/to/library:/config
-              - /path/to/tvseries:/tv
-              - /path/to/movies:/movies
-            restart: unless-stopped" >> $docker_path/docker-compose.yml
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    network_mode: host
+    environment:
+     - PUID=1000
+     - PGID=1000
+     - TZ=Etc/UTC
+     - VERSION=docker
+     - PLEX_CLAIM= $plextoken
+    volumes:
+      - $docker_path/library:/config
+      - $docker_path/downloads/tvseries:/tv
+      - $docker_path/downloads/movies:/movies
+    ports:
+      - 32400:32400/tcp
+    restart: unless-stopped" >> $docker_path/docker-compose.yml
 elif [ "$yesorno" = n ]; then
  echo " "
  echo "Skipping..."
