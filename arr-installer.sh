@@ -899,16 +899,21 @@ if [ "$yesorno" = y ]; then
  mkdir $docker_path/plex/config
  echo " "
  read -p "Enter your Plex Claim Token: " plextoken
-  sudo docker run \
--d \
---name plex \
---network=host \
--e TZ="America/Chicago" \
--e PLEX_CLAIM="$plextoken" \
--v $docker_path/plex/config:/config \
--v $docker_path/downloads/movies:/movies \
--v $docker_path/downloads/tv:/tv \
-plexinc/pms-docker:plexpass
+  echo "plex:
+            image: lscr.io/linuxserver/plex:latest
+            container_name: plex
+            network_mode: host
+            environment:
+             - PUID=1000
+             - PGID=1000
+             - TZ=Etc/UTC
+             - VERSION=docker
+             - PLEX_CLAIM= #optional
+            volumes:
+              - /path/to/library:/config
+              - /path/to/tvseries:/tv
+              - /path/to/movies:/movies
+            restart: unless-stopped"
 elif [ "$yesorno" = n ]; then
  echo " "
  echo "Skipping..."
