@@ -98,7 +98,7 @@ echo "Would you like to init docker-compose.yml (Required if not already init)? 
 echo " "
 read -n1 yesorno
 
-if [ "yesorno" = y ]; then
+if [ "$yesorno" = y ]; then
   echo "version: '3.3'
   services:" >> $docker_path/docker-compose.yml
 elif [ "$yesorno" = n ]; then
