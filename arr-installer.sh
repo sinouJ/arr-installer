@@ -117,7 +117,7 @@ echo " "
 read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
-	echo "portainer:
+	echo "  portainer:
   container_name: portainer
   restart: unless-stopped
   ports:
@@ -144,7 +144,7 @@ elif [ "$yesorno" = f ]; then
       echo " "
       read -p "Enter the location of the docker-compose.yml file: " answer
 			sleep 1
-			echo "portainer:
+			echo "  portainer:
   container_name: portainer
   restart: unless-stopped
   ports:
@@ -192,7 +192,7 @@ if [ "$yesorno" = y ]; then
 	mkdir $docker_path/downloads/tv
 	mkdir $docker_path/sonarr
 	mkdir $docker_path/sonarr/config
-	echo "sonarr:
+	echo "  sonarr:
   container_name: sonarr
   restart: unless-stopped
   ports:
@@ -226,7 +226,7 @@ elif [ "$yesorno" = f ]; then
 			read -p "Enter the new location of the downloads folder: " downloads
 			read -p "Enter the new location of where the TV Content is: " tv
 			sleep 1
-			echo "sonarr:
+			echo "  sonarr:
   container_name: sonarr
   restart: unless-stopped
   ports:
@@ -270,7 +270,7 @@ if [ "$yesorno" = y ]; then
 	mkdir $docker_path/radarr
 	mkdir $docker_path/downloads/movies
 	mkdir $docker_path/radarr/config
-	echo "radarr:
+	echo "  radarr:
     image: lscr.io/linuxserver/radarr
     container_name: radarr
     environment:
@@ -299,7 +299,7 @@ elif [ "$yesorno" = f ]; then
 			read -p "Enter the new location for config: " rconfig
 			read -p "Enter the new location of where the Movie Content is: " movies
 			sleep 1
-			echo "radarr:
+			echo "  radarr:
     image: lscr.io/linuxserver/radarr
     container_name: radarr
     environment:
@@ -349,7 +349,7 @@ if [ "$yesorno" = y ]; then
 	mkdir $docker_path/readarr
 	mkdir $docker_path/readarr/config
 	mkdir $docker_path/downloads/books
-	echo "readarr:
+	echo "  readarr:
     image: lscr.io/linuxserver/readarr:develop
     container_name: readarr
     environment:
@@ -382,7 +382,7 @@ elif [ "$yesorno" = f ]; then
 			read -p "Enter the new location of the downloads folder (Optional):  " rrdownloads
 			read -p "Enter the new location of where the Book files are(Optional): " books
 			sleep 1
-			echo "readarr:
+			echo "  readarr:
     image: lscr.io/linuxserver/readarr:develop
     container_name: readarr
     environment:
@@ -431,7 +431,7 @@ read -n1 yesorno
 if [ "$yesorno" = y ]; then
 	mkdir $docker_path/bazarr
 	mkdir $docker_path/bazarr/config
-	echo "bazarr:
+	echo "  bazarr:
     image: lscr.io/linuxserver/bazarr
     container_name: bazarr
     environment:
@@ -464,7 +464,7 @@ elif [ "$yesorno" = f ]; then
 			read -p "Enter the new location of the Movies Folder (Optional):  " brmovies
 			read -p "Enter the new location of the TV Folder (Optional): " brtv
 			sleep 1
-			echo "bazarr:
+			echo "  bazarr:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
     environment:
@@ -513,7 +513,7 @@ read -n1 yesorno
 if [ "$yesorno" = y ]; then
 	mkdir $docker_path/overseerr
 	mkdir $docker_path/overseerr/config
-	echo "overseerr:
+	echo "  overseerr:
     image: sctx/overseerr:latest
     container_name: overseerr
     environment:
@@ -539,7 +539,7 @@ elif [ "$yesorno" = f ]; then
     	read -p "Enter the location of the docker-compose.yml file: " overanswer
 			read -p "Enter the new location for config: " overconfig
 			sleep 1
-			echo "overseerr:
+			echo "  overseerr:
     image: sctx/overseerr:latest
     container_name: overseerr
     environment:
@@ -586,7 +586,7 @@ if [ "$yesorno" = y ]; then
 	mkdir $docker_path/lidarr
 	mkdir $docker_path/downloads/music
 	mkdir $docker_path/lidarr/config
-	echo "lidarr:
+	echo "  lidarr:
     image: lscr.io/linuxserver/lidarr
     container_name: lidarr
     environment:
@@ -617,7 +617,7 @@ elif [ "$yesorno" = f ]; then
 			read -p "Enter the new location of the Music Folder (Optional):  " lrmusic
 			read -p "Enter the new location of the Downloads Folder (Optional): " lrdownloads
 			sleep 1
-			echo "lidarr:
+			echo "  lidarr:
     image: lscr.io/linuxserver/lidarr
     container_name: lidarr
     environment:
@@ -666,7 +666,7 @@ read -n1 yesorno
 if [ "$yesorno" = y ]; then
 	mkdir $docker_path/prowlarr
 	mkdir $docker_path/prowlarr/config
-	echo "prowlarr:
+	echo "  prowlarr:
     image: lscr.io/linuxserver/prowlarr:develop
     container_name: prowlarr
     environment:
@@ -692,7 +692,7 @@ elif [ "$yesorno" = f ]; then
       read -p "Enter the location of the docker-compose.yml file: " prowlarranswer
       read -p "Enter the new location for config: " prowlarrconfig
       sleep 1
-      echo "prowlarr:
+      echo "  prowlarr:
         image: lscr.io/linuxserver/prowlarr:develop
         container_name: prowlarr
         environment:
@@ -737,7 +737,7 @@ read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
 	mkdir $docker_path/jackett
-	echo "jackett:
+	echo "  jackett:
   container_name: jackett
   restart: unless-stopped
   ports:
@@ -763,7 +763,7 @@ elif [ "$yesorno" = f ]; then
       read -p "Enter the location of the docker-compose.yml file: " jackettanswer
 			read -p "Enter the new location for config: " jackett
 			sleep 1
-			echo "jackett:
+			echo "  jackett:
   container_name: jackett
   restart: unless-stopped
   ports:
@@ -810,7 +810,7 @@ read -n1 yesorno
 if [ "$yesorno" = y ]; then
 	mkdir $docker_path/jellyfin
 	mkdir $docker_path/jellyfin/config
-	echo "jellyfin:
+	echo "  jellyfin:
     image: lscr.io/linuxserver/jellyfin
     container_name: jellyfin
     environment:
@@ -845,7 +845,7 @@ elif [ "$yesorno" = f ]; then
       read -p "Enter the new location for Movies: " jellymovies
       read -p "Enter the IP of the Server URL (Default is 192.168.0.5): " jellyip
       sleep 1
-      echo "jellyfin:
+      echo "  jellyfin:
         image: lscr.io/linuxserver/jellyfin
         container_name: jellyfin
         environment:
@@ -899,7 +899,7 @@ if [ "$yesorno" = y ]; then
  mkdir $docker_path/plex/config
  echo " "
  read -p "Enter your Plex Claim Token: " plextoken
-  echo "plex:
+  echo "  plex:
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
     environment:
@@ -918,35 +918,6 @@ if [ "$yesorno" = y ]; then
 elif [ "$yesorno" = n ]; then
  echo " "
  echo "Skipping..."
-elif [ "$yesorno" = f ]; then
-        echo " "
-        read -n1 -p "You have selected to use a custom Plex Server Setup. Would you like to continue? (y/n) " fix
-   if [ "$fix" = y ]; then
-     echo " "
-    read -p "Enter your Plex Claim Token: " plextoken2
-    read -p "Enter your config location: " plexconfig
-    read -P "Enter the location of your Movies: " plexmovies
-    read -p "Enter the location of your TV Shows: " plextv
-    sudo docker run \
-  -d \
-  --name plex \
-  --network=host \
-  -e TZ="America/Chicago" \
-  -e PLEX_CLAIM="$plextoken2" \
-  -v $plexconfig:/config \
-  -v $plexmovies:/movies \
-  -v $plextv:/tv \
-  plexinc/pms-docker:plexpass
-   elif [ "$fix" = n ]; then
-     echo " "
-     echo "Not adding Plex."
-     source arr-installer.sh
-     return
-   else
-     echo " "
-     echo "Goodbye!"
-     exit 1
-   fi
 elif [ "$yesorno" = e ]; then
  echo " "
  echo "Goodbye!"
@@ -968,7 +939,7 @@ read -n1 yesorno
 if [ "$yesorno" = y ]; then
 	mkdir $docker_path/emby
   mkdir $docker_path/emby/config
-	echo "emby:
+	echo "  emby:
     image: lscr.io/linuxserver/emby
     container_name: emby
     environment:
@@ -1001,7 +972,7 @@ elif [ "$yesorno" = f ]; then
       read -p "Enter the location of your TV Shows: " embytv
       read -p "Enter the location of your Movies: " embymovies
 			sleep 1
-			echo "emby:
+			echo "  emby:
     image: lscr.io/linuxserver/emby
     container_name: emby
     environment:
@@ -1051,17 +1022,17 @@ read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
 	mkdir $docker_path/adguard
-	echo "adguardhome:
+	echo "  adguardhome:
     image: adguard/adguardhome
     container_name: adguardhome
     ports:
-      - 53:53/tcp
-      - 53:53/udp
+      - 553:53/tcp
+      - 553:53/udp
       - 784:784/udp
       - 853:853/tcp
       - 3000:3000/tcp
-      - 80:80/tcp
-      - 443:443/tcp
+      - 880:80/tcp
+      - 4443:443/tcp
     volumes:
       - ./workdir:/opt/adguardhome/work
       - ./confdir:/opt/adguardhome/conf
@@ -1083,7 +1054,7 @@ elif [ "$yesorno" = f ]; then
       echo " "
       read -p "Enter the location of the docker-compose.yml file: " adguardanswer
 			sleep 1
-			echo "adguardhome:
+			echo "  adguardhome:
     image: adguard/adguardhome
     container_name: adguardhome
     ports:
@@ -1133,7 +1104,7 @@ if [ "$yesorno" = y ]; then
 	mkdir $docker_path/podgrab
     mkdir $docker_path/podgrab/config
     mkdir $docker_path/podcasts
-	echo "podgrab:
+	echo "  podgrab:
     image: akhilrex/podgrab
     container_name: podgrab
     environment:
@@ -1161,7 +1132,7 @@ elif [ "$yesorno" = f ]; then
 			read -p "Enter the new location for config: " podgrabconfig
             read -p "Enter the location you want the podcasts to be saved to: " podgrabsave
 			sleep 1
-			echo "podgrab:
+			echo "  podgrab:
     image: akhilrex/podgrab
     container_name: podgrab
     environment:
@@ -1206,7 +1177,7 @@ read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
 	mkdir $docker_path/heimdall
-	echo "heimdall:
+	echo "  heimdall:
     image: lscr.io/linuxserver/heimdall
     container_name: heimdall
     environment:
@@ -1234,7 +1205,7 @@ elif [ "$yesorno" = f ]; then
       read -p "Enter the location of the docker-compose.yml file: " heimdallanswer
 			read -p "Enter the new location for config: " heimdallconfig
 			sleep 1
-			echo "heimdall:
+			echo "  heimdall:
     image: lscr.io/linuxserver/heimdall
     container_name: heimdall
     environment:

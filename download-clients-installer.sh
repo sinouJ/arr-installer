@@ -96,7 +96,7 @@ read -n1 yesorno
 
 if [ "$yesorno" = y ]; then
 	mkdir $docker_path/qbittorrent
-	echo "qbittorrent:
+	echo "  qbittorrent:
     container_name: qbittorrent
     image: hotio/qbittorrent
     ports:
@@ -125,7 +125,7 @@ elif [ "$yesorno" = f ]; then
   			read -p "Enter the new location for config: " qbitconfig
         read -p "Enter the new location for downloads: " qbitdl
   			sleep 1
-  			echo "qbittorrent:
+  			echo "  qbittorrent:
           container_name: qbittorrent
           image: hotio/qbittorrent
           ports:
@@ -136,7 +136,7 @@ elif [ "$yesorno" = f ]; then
             - UMASK=002
             - TZ=US/Central
           volumes:
-            - $qbitocnfig:/config
+            - $qbitconfig:/config
             - $qbitdl:/downloads
           restart: unless-stopped" >> $qbitanswer
     			echo " " >> $qbitanswer
@@ -173,7 +173,7 @@ read -n1 yesorno
 if [ "$yesorno" = y ]; then
 	mkdir $docker_path/transmission
 	mkdir $docker_path/transmission/config
-	echo "transmission:
+	echo "  transmission:
     image: linuxserver/transmission
     container_name: transmission
     environment:
@@ -207,7 +207,7 @@ elif [ "$yesorno" = f ]; then
       read -p "Enter the new location for config: " transmissionconfig
       read -p "Enter the new location for downloads: " transmissiondl
       sleep 1
-      echo "transmission:
+      echo "  transmission:
         image: linuxserver/transmission
         container_name: transmission
         environment:
@@ -262,7 +262,7 @@ read -n1 yesorno
 if [ "$yesorno" = y ]; then
 	mkdir $docker_path/deluge
 	mkdir $docker_path/deluge/config
-	echo "deluge:
+	echo "  deluge:
     image: linuxserver/deluge
     container_name: deluge
     # network_mode: host
@@ -294,7 +294,7 @@ elif [ "$yesorno" = f ]; then
   			read -p "Enter the new location for config: " delugeconfig
         read -p "Enter the new location for downloads: " delugedl
   			sleep 1
-  			echo "deluge:
+  			echo "  deluge:
           image: linuxserver/deluge
           container_name: deluge
           # network_mode: host
@@ -348,7 +348,7 @@ read -n1 yesorno
 if [ "$yesorno" = y ]; then
 	mkdir $docker_path/nzbget
 	mkdir $docker_path/nzbget/config
-	echo "nzbget:
+	echo "  nzbget:
     image: lscr.io/linuxserver/nzbget:latest
     container_name: nzbget
     environment:
@@ -382,7 +382,7 @@ elif [ "$yesorno" = f ]; then
         read -p "Enter the login user-name: " nzbgetlogin
         read -p "Enter the login password: " nzbgetpass
   			sleep 1
-  			echo "nzbget:
+  			echo "  nzbget:
     image: lscr.io/linuxserver/nzbget:latest
     container_name: nzbget
     environment:
@@ -432,7 +432,7 @@ read -n1 yesorno
 if [ "$yesorno" = y ]; then
 	mkdir $docker_path/sabnzbd
 	mkdir $docker_path/sabnzbd/config
-	echo "sabnzbd:
+	echo "  sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
     environment:
@@ -460,7 +460,7 @@ elif [ "$yesorno" = f ]; then
   		read -p "Enter the new location for config: " sabconfig
         read -p "Enter the new location for downloads: " sabdown
   			sleep 1
-  			echo "sabnzbd:
+  			echo "  sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
     environment:
